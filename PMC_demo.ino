@@ -1,4 +1,3 @@
-//#include <Arduino_StoneHMIv2.h>
 #include "customHandlers.h"
 
 // For TTL connection over Serial1/UART1
@@ -44,6 +43,7 @@ void setup()
 
   hmi.addButtonHandler("button_update", buttonUpdate_handler);
   hmi.addButtonHandler("button_save", buttonSave_handler);
+  hmi.addButtonHandler("button_print", buttonPrint_handler);
   hmi.addButtonHandler("button_back_home", buttonBack_handler);
 
   hmi.addButtonHandler("beep_button", beep_button_handler);
@@ -54,9 +54,10 @@ void setup()
   // Slider handler
   hmi.addSliderChangedHandler("slider", slider_handler);
 
-  hmi.sendSet(CmdCode::SetText, "label_updated", WidgetType::Label, "sliderValue");
+  //hmi.sendSet(CmdCode::SetText, "label_updated", WidgetType::Label, "sliderValue");
 
-  hmi.debug();
+  // Debugging on Serial Monitor
+  //  hmi.debug();
 }
 constexpr unsigned long sendCommandsInterval { 5000 };
 unsigned long sendCommandsNow {};
@@ -65,6 +66,7 @@ void loop()
   // put your main code here, to run repeatedly:
   hmi.loop();
 
+  /*
   if (millis() > sendCommandsNow)
   {
     int sliderValue;
@@ -74,5 +76,5 @@ void loop()
     Serial.print("Slider: ");
     Serial.println(sliderValue);
     sendCommandsNow = millis() + sendCommandsInterval;
-  }
+  }*/
 }
